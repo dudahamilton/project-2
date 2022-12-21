@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>project 2 auth</title>
+    <title>Project 2 Auth</title>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="/">home</a></li>
-            <li><a href="/users/new">sign up</a></li>
-            <li><a href="/users/login"> login</a></li>
-            <li><a href="/users/logout"> logout</a></li>
+            <!-- show home whether the user is logged in or not -->
+            <li><a href='/'>Home</a></li>
+            <% if (user) { %>
+                <!-- show these if user is logged -->
+                <li><a href="/users/profile">Profile</a></li>
+                <li><a href="/users/logout">Logout</a></li>
+            <% } else { %>
+                <!-- show these if user not logged in -->
+                <li><a href="/users/new">Sign Up</a></li>
+                <li><a href="/users/login">Login</a></li>
+            <% } %>
         </ul>
-
     </nav>
-    <h1>express auth boilerplate for p2</h1>
+    <h1>Express Auth Boilerplate for p2 🗝</h1>
