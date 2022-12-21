@@ -1,0 +1,16 @@
+<h3>login to your account</h3>
+<form action="/users/login" method="POST">
+    <label for="email">EMAIL</label>
+    <input type="email" name="email" id="email" required/>
+
+    <label for="password">password</label>
+    <input type="password" name="password" id="password" required/>
+    <button type="submit">login</button>
+</form>
+
+<%- include('../partials/footer.ejs') %>
+
+<h3>login to your account</h3>
+<% if (message) { %>
+    <p><%= message %></p>
+<% } %>
