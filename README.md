@@ -23,3 +23,12 @@ As a user I would like to safely create an account, see different movies, be abl
 * User can rate movies from 1 start to 5
 
 ## Routes
+<img src="./routes.png" width="400" height="400"/>
+
+## ERD
+<img src="./erd.png" width="400" height="400"/>
+
+## Wireframes
+<img src="./image1.png" width="400" height="400"/>
+<img src="./image2.png" width="400" height="400"/>
+<img src="./image3.png" width="400" height="400"/>
