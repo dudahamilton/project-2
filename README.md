@@ -1,18 +1,18 @@
 # Opinions of movies by non-experts
 
 ## Pitch:
-My unit2 project will be a movies website where users can create an account, login their and comment their opinion the the movies displayed on the website that they've watched before. They will be able to edit and delete comments if they would like and choose their favorite movies.
+My unit2 project will be a movies website where users can create an account, login and comment their opinion of the movies displayed on the website. They will be able to edit and delete comments if they would like and choose their favorite movies. They will also be able to see other users comments.
 
 ## API
 I will be using the OMDB API. I have a key already.
 
 
 ## User Stories
-As a user I would like to safely create an account, see different movies, be able to add my opinion of movies I've watched (as comments), edit or delete it if necessary and choose my favorites.
+As a user I would like to safely create an account, see different movies, be able to add my opinion of movies I've watched (as comments), edit or delete it if necessary, choose my favorites and see other users comments.
 
 ## MVP
 * User can create account/login/logout
-* User can see a variaty of movies
+* User can see a variety of movies
 * User can comment the movies they see
 * User can edit comment
 * User can delete comment
@@ -21,7 +21,8 @@ As a user I would like to safely create an account, see different movies, be abl
 ## Stretch Goals
 * User can change their password
 * User can rate movies from 1 start to 5
-* User can acess a page with all their favorite movies
+* User can access a page with all their favorite movies
+* User can undo a favorite (if they chose a favorite movie by accident)
 
 ## Routes
 <img src="./images/routes.png" width="400" height="400"/>
