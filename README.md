@@ -21,6 +21,7 @@ As a user I would like to safely create an account, see different movies, be abl
 ## Stretch Goals
 * User can change their password
 * User can rate movies from 1 start to 5
+* User can acess a page with all their favorite movies
 
 ## Routes
 <img src="./images/routes.png" width="400" height="400"/>
