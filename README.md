@@ -28,7 +28,7 @@ As a user I would like to safely create an account, see different movies, be abl
 <img src="./images/routes.png" width="400" height="400"/>
 
 ## ERD
-<img src="./images/erd.png" width="400" height="400"/>
+<img src="./images/erd2.png" width="400" height="400"/>
 
 ## Wireframes
 <img src="./images/image1.png" width="400" height="400"/>
