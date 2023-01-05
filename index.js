@@ -4,10 +4,12 @@ require('dotenv').config()
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const db = require('./models')
+const axios = require('axios')
 
 // app config
 const app = express()
 const PORT = process.env.PORT || 8000
+const API_KEY = process.env.API_KEY
 app.set('view engine', 'ejs')
 // parse request bodies from html forms
 app.use(express.urlencoded({ extended: false }))
@@ -54,6 +56,21 @@ app.get('/', (req, res) => {
     res.render('home.ejs', {
         user: res.locals.user
     })
+})
+
+// This tests my api
+app.get('/api', async (req, res) => { //async the route use the await keyword
+try {
+    const baseUrl = `https://omdbapi.com/?apikey=${API_KEY}&t=star+wars`
+    console.log(baseUrl)
+    const response = await axios.get(baseUrl)
+    res.json(response.data)
+ } catch (error) {
+    //console log the especifics of the error, but keep them private
+    console.log('👹👹👹👹👹👹')
+    // generic internal server error code
+    res.status(500).send('Internal server error')
+}
 })
 
 app.use('/users', require('./controllers/users'))
