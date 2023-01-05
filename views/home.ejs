@@ -1,3 +1,12 @@
 <%- include(`partials/header.ejs`, { user }) %>
-<h2>Welcome home, user</h2>
+<main>
+</main>
+<p>Search for a movie below...</p>
+<form method="GET" action="/movies">
+    <label for="movie-imput">Search</label>
+    <input type="text" id="movie-input" placeholder="Search a Movie" name="title" />
+    
+    <button type="submit">Search</button>
+
+</form>
 <%- include(`partials/footer.ejs`) %>

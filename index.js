@@ -58,6 +58,23 @@ app.get('/', (req, res) => {
     })
 })
 
+// GET movie from the search form
+app.get('/movies', async (req, res) => {
+    try {
+        const url = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${req.query.title}`
+
+        const response = await axios.get(url)
+        //console.log(response.data.Search[0])
+
+        res.render('movies/movies.ejs', {
+            movies: response.data
+        })
+    }catch (err) {
+        console.log('🤡🤡🤡🤡🤡', err)
+        res.status(500).send('API error')
+    }    
+})
+
 // This tests my api
 app.get('/api', async (req, res) => { //async the route use the await keyword
 try {
