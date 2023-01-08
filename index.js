@@ -5,6 +5,7 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const db = require('./models')
 const axios = require('axios')
+const { response } = require('express')
 
 // app config
 const app = express()
@@ -79,7 +80,13 @@ app.get('/movies', async (req, res) => {
 app.get('/movies/:imdbID', async (req, res) => {
     try {
         // url route patameters
+        const url = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&i=${req.params.imdbID}`
         console.log(req.params)
+        const response = await axios.get(url)
+        //res.json(response.data)
+        res.render('movies/detail.ejs', {
+            movie: response.data
+        })
     }catch (err) {
         console.log('🤡🤡🤡🤡🤡', err)
         res.status(500).send('API error')
