@@ -10,10 +10,24 @@
            <p class="card-text">Actors: <%= movie.Actors%></p>
            <p class="card-text">Plot: <%= movie.Plot%></p>
          
-       </div>
+    </div>
 </div>
+<div>
+    <form action="/movies" method="POST" >
+        <section>
+            <label for="comment">Write a review</label>
+            <textarea id="comment" cols="30" rows="5" name="comment"></textarea>
+            <input hidden name="imdbID" value="<%= movie.imdbID%>">
+            <input hidden name="title" value="<%= movie.Title%>">
+            <input hidden name="year" value="<%= movie.Year%>">
+            <button type="submit">Submit</button>
 
+        </section>
+    </form>
+</div>
 <!-- I got the layout and style from bootstrap and then just added the info I got from the api in p tags -->
+
+<%- include(`../partials/footer.ejs`) %>
 
 
 

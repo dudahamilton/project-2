@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   movie.init({
     title: DataTypes.STRING,
     year: DataTypes.STRING,
-    imdbID: DataTypes.INTEGER
+    imdbID: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'movie',

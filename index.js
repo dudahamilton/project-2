@@ -62,19 +62,51 @@ app.get('/', (req, res) => {
 // GET movie from the search form
 app.get('/movies', async (req, res) => {
     try {
+        // api key with the query that shows the title typed in the search form
         const url = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${req.query.title}`
 
         const response = await axios.get(url)
         //console.log(response.data.Search[0])
-
+        // giving (responding) back movies.ejs
         res.render('movies/movies.ejs', {
             movies: response.data
-        })
+        })  
+       
     }catch (err) {
+        // If there is any error the user should get a message
         console.log('🤡🤡🤡🤡🤡', err)
         res.status(500).send('API error')
     }    
 })
+
+
+// Route to see comments
+
+
+// route to CREATE a new comment
+app.post('/movies', async (req, res) => {
+    try{
+        const [movie, create] = await db.movie.findOrCreate({
+            where: {title: req.body.title,
+                year: req.body.year,
+                imdbID: req.body.imdbID}
+            
+        })
+        const newComment = await db.comment.create({userId: res.locals.user.id,
+        movieId:movie.id,
+        content:req.body.comment
+        })
+        res.redirect(`/movies/${req.body.imdbID}`)
+    }catch(err){
+        res.send(err)
+    }
+})
+
+
+
+
+
+
 
 // GET route that renders a single movie details and comments
 app.get('/movies/:imdbID', async (req, res) => {
@@ -84,12 +116,30 @@ app.get('/movies/:imdbID', async (req, res) => {
         console.log(req.params)
         const response = await axios.get(url)
         //res.json(response.data)
-        res.render('movies/detail.ejs', {
-            movie: response.data
+        // responding with that specific movie details page(detail.ejs)
+        const [movie, create] = await db.movie.findOrCreate({
+            where: {title: response.data.Title,
+                year: response.data.Year,
+                imdbID: response.data.imdbID}
+            
         })
+        
+         if (!create){
+            const comments = await movie.getComments()
+            res.render('movies/detail.ejs', {
+                movie: response.data,
+                comment: comments
+            })
+        } else{
+            res.send("This movie was not reviewed yet")
+        } 
+        
+        /* res.render('movies/detail.ejs', {
+            movie: response.data
+        }) */
     }catch (err) {
         console.log('🤡🤡🤡🤡🤡', err)
-        res.status(500).send('API error')
+        res.status(500).send('API error', err)
     }    
 })
 
