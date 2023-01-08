@@ -75,8 +75,16 @@ app.get('/movies', async (req, res) => {
     }    
 })
 
-
-  
+// GET route that renders a single movie details and comments
+app.get('/movies/:imdbID', async (req, res) => {
+    try {
+        // url route patameters
+        console.log(req.params)
+    }catch (err) {
+        console.log('🤡🤡🤡🤡🤡', err)
+        res.status(500).send('API error')
+    }    
+})
 
 
 // This tests my api
