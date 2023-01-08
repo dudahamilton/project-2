@@ -6,7 +6,7 @@
     <div class="card-body">
       <h5 class="card-title"><%= movie.Title%> </h5>
       <p class="card-text"> <%= movie.Year%> </p>
-      <a href="#" class="btn btn-info">Go somewhere</a>
+      <a href="/movies/<%= movie.imdbID %>" class="btn btn-info">Details</a>
     </div>
   </div>
 <% }); %>

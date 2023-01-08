@@ -75,8 +75,12 @@ app.get('/movies', async (req, res) => {
     }    
 })
 
+
+  
+
+
 // This tests my api
-app.get('/api', async (req, res) => { //async the route use the await keyword
+ app.get('/api', async (req, res) => { //async the route use the await keyword
 try {
     const baseUrl = `https://omdbapi.com/?apikey=${API_KEY}&t=star+wars`
     console.log(baseUrl)
@@ -88,7 +92,7 @@ try {
     // generic internal server error code
     res.status(500).send('Internal server error')
 }
-})
+}) 
 
 app.use('/users', require('./controllers/users'))
 
