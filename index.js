@@ -4,6 +4,7 @@ require('dotenv').config()
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const db = require('./models')
+const crypto = require('crypto-js')
 const axios = require('axios')
 const { response } = require('express')
 
@@ -23,8 +24,11 @@ app.use(cookieParser())
 app.use(async (req, res, next) => {
     try {
         if (req.cookies.userId) {
+            // decrypt the user id and turn it into a string
+            const decryptedId = crypto.AES.decrypt(req.cookies.userId, process.env.SECRET)
+            const decryptedString = decryptedId.toString(crypto.enc.Utf8)
             // the user is logged in, lets find them in the db
-            const user = await db.user.findByPk(req.cookies.userId)
+            const user = await db.user.findByPk(decryptedString)
             // mount the logged in user on the res.locals
             res.locals.user = user
         } else {
@@ -36,10 +40,11 @@ app.use(async (req, res, next) => {
         next()
     } catch (err) {
         console.log('error in auth middleware: 🔥🔥🔥🔥', err)
+        // explicity set user to null if there is an error
+        res.locals.user = null
         next() // go to the next thing
     }
 })
-
 // example custom middleware (incoming request logger)
 app.use((req, res, next) => {
     // our code goes here
@@ -117,22 +122,33 @@ app.get('/movies/:imdbID', async (req, res) => {
         const response = await axios.get(url)
         //res.json(response.data)
         // responding with that specific movie details page(detail.ejs)
-        const [movie, create] = await db.movie.findOrCreate({
-            where: {title: response.data.Title,
-                year: response.data.Year,
+        const movie = await db.movie.findOne({
+            where: {imdbID: response.data.imdbID},
+            include: [{model:db.comment, 
+            include:db.user}]
+            
+                /* year: response.data.Year,
                 imdbID: response.data.imdbID}
+             */
+        })
+       /*  const comments = await db.comment.findAll({
+            where: {imdbID}
+        }) */
+        console.log(movie)
+        console.log(response.data)
+        
+        res.render('movies/detail.ejs', {
+            foundMovie: movie, movie: response.data,
             
         })
         
-         if (!create){
+        /*  if (!create){
             const comments = await movie.getComments()
             res.render('movies/detail.ejs', {
                 movie: response.data,
                 comment: comments
             })
-        } else{
-            res.send("This movie was not reviewed yet")
-        } 
+        }  */
         
         /* res.render('movies/detail.ejs', {
             movie: response.data

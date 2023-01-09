@@ -1,16 +1,20 @@
-<h3>login to your account</h3>
-<form action="/users/login" method="POST">
-    <label for="email">EMAIL</label>
-    <input type="email" name="email" id="email" required/>
+<%- include('../partials/header.ejs', { user }) %>
 
-    <label for="password">password</label>
+<h3>Login to your account</h3>
+
+<% if (message) { %>
+    <p><%= message %></p>
+<% } %>
+
+<form action="/users/login" method="POST">
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required />
+
+    <label for="password">Password:</label>
     <input type="password" name="password" id="password" required/>
-    <button type="submit">login</button>
+
+    <button type="submit">Login</button>
 </form>
 
 <%- include('../partials/footer.ejs') %>
 
-<h3>login to your account</h3>
-<% if (message) { %>
-    <p><%= message %></p>
-<% } %>

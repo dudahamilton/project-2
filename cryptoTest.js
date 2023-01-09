@@ -28,7 +28,7 @@ const hashedPassword = bcrypt.hashSync(userPassword, 12)
 console.log(hashedPassword)
 
 // // COMPARE a string to our hash (user login)
-// console.log(bcrypt.compareSync('wrong', hashedPassword))
+console.log(bcrypt.compareSync('wrong', hashedPassword))
 
 // // node js's built in crytpo pack
 // const cryptoNode = require('crypto')
