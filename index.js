@@ -5,8 +5,10 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const db = require('./models')
 const crypto = require('crypto-js')
+const methodOverride = require('method-override')
 const axios = require('axios')
 const { response } = require('express')
+
 
 // app config
 const app = express()
@@ -17,6 +19,7 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 // tell express to parse incoming cookies
 app.use(cookieParser())
+app.use(methodOverride('_method'))
 
 // custom auth middleware that checks the cookies for a user id
 // and it finds one, look up the user in the db
@@ -134,8 +137,7 @@ app.get('/movies/:imdbID', async (req, res) => {
        /*  const comments = await db.comment.findAll({
             where: {imdbID}
         }) */
-        console.log(movie)
-        console.log(response.data)
+        
         
         res.render('movies/detail.ejs', {
             foundMovie: movie, movie: response.data,
@@ -158,26 +160,23 @@ app.get('/movies/:imdbID', async (req, res) => {
         res.status(500).send('API error', err)
     }    
 })
- /*router.delete('/comments', async function (req, res) {
+ app.delete('/movies/:imdbID', async function (req, res) {
     const user = res.locals.user
-
     try {
         const deleteComment = await db.comment.destroy({
             where: {
-                userId: user.dataValues.id
+                id: req.body.commentId
             }
         })
-        const deletedUser = await db.user.destroy({
-            where: {
-                id: user.dataValues.id
-            }
-        })
-        res.redirect('/')
+        res.redirect('/movies/:imdbID')
     } catch (error) {
         console.error(error)
     }
 }) 
- */
+
+/* router.put('/comments', async function (req, res) {
+    
+})  */
 
 // This tests my api
  app.get('/api', async (req, res) => { //async the route use the await keyword

@@ -20,11 +20,10 @@
         <% foundMovie.dataValues.comments.forEach(function(comment) { %>
             <p> <%=comment.user.email%> says:</p>
             <p class=“ms-4 fst-italic fw-lighter”><%= comment.content %></p>
+            
             <% })} %>
             
-            <form class="card-link" method="POST" action="/movies">
-                <button class="btn btn-outline-danger" type="submit" value="<%=foundMovie.dataValues.comments.id%>" name="commentId">Delete Review</button>
-            </form>  
+          
             <form class="card-link" method="POST" action="/movies">
                 <button class="btn btn-outline-danger" type="submit" value="<%=foundMovie.dataValues.comments.id%>" name="commentId">Edit Review</button>
             </form>  
