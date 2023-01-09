@@ -158,7 +158,26 @@ app.get('/movies/:imdbID', async (req, res) => {
         res.status(500).send('API error', err)
     }    
 })
+ /*router.delete('/comments', async function (req, res) {
+    const user = res.locals.user
 
+    try {
+        const deleteComment = await db.comment.destroy({
+            where: {
+                userId: user.dataValues.id
+            }
+        })
+        const deletedUser = await db.user.destroy({
+            where: {
+                id: user.dataValues.id
+            }
+        })
+        res.redirect('/')
+    } catch (error) {
+        console.error(error)
+    }
+}) 
+ */
 
 // This tests my api
  app.get('/api', async (req, res) => { //async the route use the await keyword

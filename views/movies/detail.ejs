@@ -12,7 +12,8 @@
          
     </div>
 </div>
-<p class="fw-bold">Comments:</p>
+<div>
+    <p class="fw-bold">Comments:</p>
  <% if (foundMovie.comments.length < 1) { %>
     <p>Be the first to review this movie</p>
     <% } else { %>
@@ -21,7 +22,13 @@
             <p class=“ms-4 fst-italic fw-lighter”><%= comment.content %></p>
             <% })} %>
             
-
+            <form class="card-link" method="POST" action="/movies">
+                <button class="btn btn-outline-danger" type="submit" value="<%=foundMovie.dataValues.comments.id%>" name="commentId">Delete Review</button>
+            </form>  
+            <form class="card-link" method="POST" action="/movies">
+                <button class="btn btn-outline-danger" type="submit" value="<%=foundMovie.dataValues.comments.id%>" name="commentId">Edit Review</button>
+            </form>  
+        </div>
 <div>
     <form action="/movies" method="POST" >
         <section>
@@ -35,6 +42,7 @@
         </section>
     </form>
 </div>
+
 <!-- I got the layout and style from bootstrap and then just added the info I got from the api in p tags -->
 
 <%- include(`../partials/footer.ejs`) %>
