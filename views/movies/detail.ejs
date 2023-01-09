@@ -14,13 +14,11 @@
 </div>
 <div>
     <p class="fw-bold">Comments:</p>
- <% if (foundMovie.comments.length < 1) { %>
+ <% if (foundMovie.comments.length == 0) { %>
     <p>Be the first to review this movie</p>
     <% } else { %>
-        <% foundMovie.dataValues.comments.forEach(function(comment) { %>
-            <p> <%=comment.user.email%> says:</p>
-            <p class=“ms-4 fst-italic fw-lighter”><%= comment.content %></p>
-            
+        <% foundMovie.dataValues.comments.forEach(function(comment) { %> <p> <%=comment.user.email%> says:</p>
+            <p class=“ms-4 fst-italic fw-lighter”><%= comment.content %></p> 
             <% })} %>
             
           

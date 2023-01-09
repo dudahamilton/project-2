@@ -44,6 +44,7 @@ My project has a table of users, comments and movies and also a joint table user
 * Ejs
 * ORM for the db: Sequelize
 * Postgres 
+* CSS Bootstrap
 
 ## Post-Project Reflections:
 I was able to learn a lot during this project. I now have a better understanding about node, express, sql and sequelize. I reviewed a lot of material to be able to put this app together, I have a much better understanding of restful routes, even though I still have a lot to work on. My unsolved problems were the delete edit comment routes but I plan on finishing as soon as possible. I now feel comfortable working with a sequelize structured db, and feel comfortable working with APIs in an express app.
