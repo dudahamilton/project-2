@@ -34,3 +34,19 @@ As a user I would like to safely create an account, see different movies, be abl
 <img src="./images/image1.png" width="400" height="400"/>
 <img src="./images/image2.png" width="400" height="400"/>
 <img src="./images/image3.png" width="400" height="400"/>
+
+## Aproach
+My project has a table of users, comments and movies and also a joint table users_movies. I decided to do a findOrCreate for the comments, so the user could write a review in a movie that was not yet in the database.My routes were built in a way that the user could search for a movie, click in that specific movie to learn more details about it and be able to add a comment to it, edit and delete it (the last two I was not able to finish on time but I will tonight).
+
+## technologies
+* Node.js
+* Express
+* Ejs
+* ORM for the db: Sequelize
+* Postgres 
+
+## Post-Project Reflections:
+I was able to learn a lot during this project. I now have a better understanding about node, express, sql and sequelize. I reviewed a lot of material to be able to put this app together, I have a much better understanding of restful routes, even though I still have a lot to work on. My unsolved problems were the delete edit comment routes but I plan on finishing as soon as possible. I now feel comfortable working with a sequelize structured db, and feel comfortable working with APIs in an express app.
+
+## Sources
+* MDN
