@@ -9,10 +9,10 @@ My unit2 project will be a movies website where users can create an account, log
 * Add files. In your terminal: touch .gitignore .env
 * then you addnode_modules and .env to your .gitignore file
 * Get an API key from OMDB api
-* Create the database and migrate the models (commands:
+* Create the database and migrate the models (commands:sequelize db:create and
 sequelize db:migrate  )
 * run nodemon in your terminal
-* go to localhost:300
+* go to localhost:3000
 ## API
 I will be using the OMDB API. I have a key already.
 
