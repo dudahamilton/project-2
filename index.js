@@ -50,12 +50,9 @@ app.use(async (req, res, next) => {
 })
 // example custom middleware (incoming request logger)
 app.use((req, res, next) => {
-    // our code goes here
-    // console.log('hello from inside of the middleware!')
+  
     console.log(`incoming request: ${req.method} - ${req.url}`)
-    // res.locals are a place that we can put data to share with 'downstream routes'
-    // res.locals.myData = 'hello I am data'
-    // invoke next to tell express to go to the next route or middle
+   
     next()
 })
 
@@ -73,8 +70,6 @@ app.get('/movies', async (req, res) => {
         const url = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${req.query.title}`
 
         const response = await axios.get(url)
-        //console.log(response.data.Search[0])
-        // giving (responding) back movies.ejs
         res.render('movies/movies.ejs', {
             movies: response.data
         })  
@@ -118,12 +113,9 @@ app.post('/movies', async (req, res) => {
 // GET route that renders a single movie details and comments
 app.get('/movies/:imdbID', async (req, res) => {
     try {
-        // url route patameters
         const url = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&i=${req.params.imdbID}`
         console.log(req.params)
         const response = await axios.get(url)
-        //res.json(response.data)
-        // responding with that specific movie details page(detail.ejs)
         const movie = await db.movie.findOne({
             where: {imdbID: response.data.imdbID},
             include: [{model:db.comment, 
@@ -139,6 +131,9 @@ app.get('/movies/:imdbID', async (req, res) => {
         res.status(500).send('API error', err)
     }    
 })
+
+//Delete comment
+// I finished this with Devin and didn't have time to add comments but I'll do it tomorrow so I can remember what I did and how I did
  app.delete('/movies/:imdbID/comments/:commentId', async function (req, res) {
     const user = res.locals.user
     console.log('🥰😘', req.params.commentId)
@@ -156,7 +151,7 @@ app.get('/movies/:imdbID', async (req, res) => {
     }
 }) 
 
-
+//Edit comment
 app.put('/movies/:imdbID/comments/:commentId', async function (req, res) {
     try {
         const user = res.locals.user

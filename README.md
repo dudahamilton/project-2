@@ -1,8 +1,18 @@
 # Opinions of movies by non-experts
 
-## Pitch:
+## Idea:
 My unit2 project will be a movies website where users can create an account, login and comment their opinion of the movies displayed on the website. They will be able to edit and delete comments if they would like and choose their favorite movies. They will also be able to see other users comments.
 
+## installation instructions:
+* Fork and clone repository
+* run (in your terminal): npm install (to instal necessary packages)
+* Add files. In your terminal: touch .gitignore .env
+* then you addnode_modules and .env to your .gitignore file
+* Get an API key from OMDB api
+* Create the database and migrate the models (commands:
+sequelize db:migrate  )
+* run nodemon in your terminal
+* go to localhost:300
 ## API
 I will be using the OMDB API. I have a key already.
 
@@ -37,6 +47,7 @@ As a user I would like to safely create an account, see different movies, be abl
 
 ## Aproach
 My project has a table of users, comments and movies and also a joint table users_movies. I decided to do a findOrCreate for the comments, so the user could write a review in a movie that was not yet in the database.My routes were built in a way that the user could search for a movie, click in that specific movie to learn more details about it and be able to add a comment to it, edit and delete it (the last two I was not able to finish on time but I will tonight).
+
 
 ## technologies
 * Node.js
