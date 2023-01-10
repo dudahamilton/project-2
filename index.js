@@ -60,13 +60,12 @@ app.use((req, res, next) => {
 })
 
 // routes and controllers
-app.get('/', (req, res) => {
+ app.get('/', (req, res) => {
     console.log(res.locals.user)
     res.render('home.ejs', {
-        user: res.locals.user
+        user: res.locals.user,
     })
-})
-
+}) 
 // GET movie from the search form
 app.get('/movies', async (req, res) => {
     try {
@@ -129,69 +128,57 @@ app.get('/movies/:imdbID', async (req, res) => {
             where: {imdbID: response.data.imdbID},
             include: [{model:db.comment, 
             include:db.user}]
-            
-                /* year: response.data.Year,
-                imdbID: response.data.imdbID}
-             */
         })
-       /*  const comments = await db.comment.findAll({
-            where: {imdbID}
-        }) */
-        
-        
+        console.log('🥰movies', movie)
         res.render('movies/detail.ejs', {
             foundMovie: movie, movie: response.data,
             
         })
-        
-        /*  if (!create){
-            const comments = await movie.getComments()
-            res.render('movies/detail.ejs', {
-                movie: response.data,
-                comment: comments
-            })
-        }  */
-        
-        /* res.render('movies/detail.ejs', {
-            movie: response.data
-        }) */
     }catch (err) {
         console.log('🤡🤡🤡🤡🤡', err)
         res.status(500).send('API error', err)
     }    
 })
- app.delete('/movies/:imdbID', async function (req, res) {
+ app.delete('/movies/:imdbID/comments/:commentId', async function (req, res) {
     const user = res.locals.user
+    console.log('🥰😘', req.params.commentId)
     try {
         const deleteComment = await db.comment.destroy({
             where: {
-                id: req.body.commentId
+                id: req.params.commentId,
+                userId: user.id
+                
             }
         })
-        res.redirect('/movies/:imdbID')
+        res.redirect(`/movies/${req.params.imdbID}`)
     } catch (error) {
         console.error(error)
     }
 }) 
 
-/* router.put('/comments', async function (req, res) {
-    
-})  */
 
-// This tests my api
- app.get('/api', async (req, res) => { //async the route use the await keyword
-try {
-    const baseUrl = `https://omdbapi.com/?apikey=${API_KEY}&t=star+wars`
-    console.log(baseUrl)
-    const response = await axios.get(baseUrl)
-    res.json(response.data)
- } catch (error) {
-    //console log the especifics of the error, but keep them private
-    console.log('👹👹👹👹👹👹')
-    // generic internal server error code
-    res.status(500).send('Internal server error')
-}
-}) 
+app.put('/movies/:imdbID/comments/:commentId', async function (req, res) {
+    try {
+        const user = res.locals.user
+        const imdbId = req.params.imdbID
+        const commentId = req.params.commentId
+        console.log('🥳', commentId)
+        const url = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&i=${imdbId}`
+        const up = await db.comment.update({
+            content: req.body.editContent
+        }, {
+            where: {
+                id: commentId,
+                userId: user.id
+            }
+        }
+        )
+
+        res.redirect(`/movies/${imdbId}`)
+    } catch (err) {
+        console.log(err)
+    }
+})     
 
 app.use('/users', require('./controllers/users'))
 

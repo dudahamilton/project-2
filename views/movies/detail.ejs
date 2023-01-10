@@ -11,34 +11,47 @@
            <p class="card-text">Plot: <%= movie.Plot%></p>
          
     </div>
-</div>
-<div>
-    <p class="fw-bold">Comments:</p>
- <% if (foundMovie.comments.length == 0) { %>
-    <p>Be the first to review this movie</p>
-    <% } else { %>
-        <% foundMovie.dataValues.comments.forEach(function(comment) { %> <p> <%=comment.user.email%> says:</p>
-            <p class=“ms-4 fst-italic fw-lighter”><%= comment.content %></p> 
-            <% })} %>
-            
-          
-            <form class="card-link" method="POST" action="/movies">
-                <button class="btn btn-outline-danger" type="submit" value="<%=foundMovie.dataValues.comments.id%>" name="commentId">Edit Review</button>
-            </form>  
-        </div>
-<div>
-    <form action="/movies" method="POST" >
-        <section>
-            <label for="comment">Write a review</label>
-            <textarea id="comment" cols="30" rows="5" name="comment"></textarea>
-            <input hidden name="imdbID" value="<%= movie.imdbID%>">
-            <input hidden name="title" value="<%= movie.Title%>">
-            <input hidden name="year" value="<%= movie.Year%>">
-            <button type="submit">Submit</button>
+    <p class="fw-bold">Reviews:</p>
 
-        </section>
-    </form>
+    <% if (!foundMovie || foundMovie.comments.length === 0) { %>
+       <p>Be the first to review this movie</p>
+       <% } else { %>
+           <% foundMovie.dataValues.comments.forEach(function(comment) { %> <p> <%=comment.user.email%> says:</p>
+               <p class=“ms-4 fst-italic fw-lighter”><%= comment.content %></p> 
+
+
+
+            <form class="card-link" method="post" action="/movies/<%= movie.imdbID %>/comments/<%= comment.id %>?_method=PUT">
+                <input type="text" name="editContent" value="<%= comment.content %>" >
+                <input hidden type="number" name="userId" value="<%= comment.user.id %>" >
+                <input hidden type="number" name="commentId" value="<%= comment.id %>" >
+
+               <button class="btn btn-outline-danger" type="submit" value="edit" name="commentId">Edit Review</button>
+           </form>
+
+
+
+            <form class="card-link" method="post" action="/movies/<%= movie.imdbID%>/comments/<%= comment.id %>?_method=DELETE">
+             <button class="btn btn-outline-danger" type="submit" name="commentId">Delete Review</button>
+         </form>  
+               <% }) %>
+           <%}%>
+               <form action="/movies" method="POST" >
+               <section>
+                   <label for="comment">Write a review</label>
+                   <br>
+                   <textarea id="comment" cols="30" rows="5" name="comment"></textarea>
+                   <input hidden name="imdbID" value="<%= movie.imdbID%>">
+                   <input hidden name="title" value="<%= movie.Title%>">
+                   <input hidden name="year" value="<%= movie.Year%>">
+                   <br>
+                   <button type="submit">Submit</button>
+       
+               </section>
+           </form>
 </div>
+
+    
 
 <!-- I got the layout and style from bootstrap and then just added the info I got from the api in p tags -->
 
